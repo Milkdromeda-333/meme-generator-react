@@ -1,0 +1,28 @@
+:root {
+  --gradient: linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Karla", sans-serif;
+  margin: 0;
+  background-color: #e3e3e3;
+}
+
+/* utilities */
+.nav--bg,
+.btn--bg {
+  background: var(--gradient);
+}
+
+/* content */
+.nav--logo {
+  width: 50px;
+}
+
+.btn--hover-bg:hover {
+  background: linear-gradient(90deg, #3F2B96 20%, #A8C0FF 100%);
+}
