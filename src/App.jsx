@@ -4,7 +4,6 @@ export default function App() {
 
   const btn = document.querySelector("#btn");
   const memeContainer = document.querySelector("#meme-image");
-  // const getRandomMeme = () => { return memes[Math.floor(Math.random() * memes.length)]; };
   function getRandomMeme() {
     return memes[Math.floor(Math.random() * memes.length)];
   }
@@ -12,8 +11,8 @@ export default function App() {
   const [memes, setMemes] = useState([]);
   const [memeImageUrl, setMemeImageUrl] = useState("");
   const [formData, setFormData] = useState({
-    topText: "",
-    bottomText: ""
+    topText: "Top text",
+    bottomText: "bottom text"
   });
 
   function handleChange(e) {
@@ -31,12 +30,21 @@ export default function App() {
         setMemes(response.data.memes);
         return response;
       })
-      .then(response => setMemeImageUrl(response.data.memes[2].url));
+      .then(response => setMemeImageUrl("https://i.imgflip.com/1bik.jpg"));
   }, []);
 
   function handleClick(e) {
     e.preventDefault;
-    setMemeImageUrl(getRandomMeme().url);
+    let generatedMeme = getRandomMeme();
+    // theres a meme data whose url is a blank image so i am skipping it here
+    switch (generatedMeme.id) {
+      case "183518946":
+        generatedMeme = getRandomMeme();
+        break;
+      default:
+        break;
+    }
+    setMemeImageUrl(generatedMeme.url);
   }
 
   return (
@@ -70,10 +78,10 @@ export default function App() {
             <button type="button" className="btn btn--bg btn--hover-bg mb-2 text-white col-12 form-control" onClick={handleClick}>Get a new image</button>
           </div>
         </div>
-        <div id="meme-image" className="mx-auto position-relative">
-          <img src={memeImageUrl} className="meme--image img-fluid" alt="meme" />
-          <p className="">{formData.topText}</p>
-          <p className="">{formData.bottomText}</p>
+        <div id="meme--container" className="position-relative text-white text-center text-uppercase font-weight-bold display-5">
+          <img src={memeImageUrl} className="meme--image" alt="meme" />
+          <p className="position-absolute meme--text meme--text-top">{formData.topText}</p>
+          <p className="position-absolute  meme--text meme--text-bottom">{formData.bottomText}</p>
         </div>
       </form>
     </div>

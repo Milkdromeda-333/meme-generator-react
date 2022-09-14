@@ -26,3 +26,29 @@ body {
 .btn--hover-bg:hover {
   background: linear-gradient(90deg, #3F2B96 20%, #A8C0FF 100%);
 }
+
+/* Meme */
+.meme--container {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif !important;
+
+}
+
+.meme--text {
+  text-shadow: 0 0 2px #000;
+
+  transform: translate(-50%, 50%);
+}
+
+.meme--text-top {
+  top: -20px;
+  left: 50%;
+}
+
+.meme--text-bottom {
+  bottom: 10px;
+  left: 50%;
+}
+
+.meme--image {
+  height: 70vh;
+}
