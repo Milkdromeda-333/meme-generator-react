@@ -6,8 +6,7 @@ This is a project where I used bootstrap and React.js to build a meme generator.
 - How to make an offcanvas component in Bootstrap 5 <br>
 - How to use bootstrap icons <br>
 - How to put text over an image using CSS. <br>
-- I practiced making components in React and passed props through them. <br>
-
+- I practiced making components in React and passed props through them. <br><br>
 Problems: <br>
 - I couldn't figure out how to condistionally style my components based on a prop passed to it. <br>
 - Not sure how to make the entire site responsive. 
