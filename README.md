@@ -7,8 +7,8 @@ Here's what I learned from the process: <br>
 - How to make an offcanvas component in Bootstrap 5 <br>
 - How to use bootstrap icons <br>
 - How to put text over an image using CSS. <br>
-- I practiced making components in React and passed props through them. <br><br>
+- I practiced making components in React and passed props through them.  <br>
+- when debugging, do step-by-step run-through of the part of the code infected, and make sure each step is doing what it's intended to do.<br><br>
 Problems: <br>
 - I couldn't figure out how to condistionally style my components based on a prop passed to it. <br>
-- Not sure how to make the entire site responsive. <br>
-- when debugging, do step-by-step run-through of the part of the code infected, and make sure each step is doing what it's intended to do.
+- Not sure how to make the entire site responsive.
