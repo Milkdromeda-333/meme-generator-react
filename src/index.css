@@ -106,11 +106,12 @@ form .bookmark-icon:hover {
   color: white;
   font-size: 12px;
   border: 3px solid var(--blue);
-  width: fit-content;
+  width: 80px;
   padding: 3px;
   font-weight: bold;
   transition: all .25s ease-in-out;
-  border-radius: 5px;
+  border-radius: 10px;
+  margin: 10px;
 }
 
 .savedMeme--view-meme:hover {

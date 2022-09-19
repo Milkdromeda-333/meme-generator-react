@@ -5,16 +5,17 @@ import SavedMeme from "./SavedMeme.jsx";
 export default function App() {
   /*
   PROJECT TASKS:
-    task: be able to delete saved meme from list
     task: be able to edit the meme
 
   TASKS:
-  [] edit the bookmark icons
-  
-  TODO:
+  [] when click the view meme they can see the meme
+  [] add edit button to the bookmarked list and make it open the saved meme and make it be able to edit the top or bottom text with a small form
   []change font-family
-  []when meme is bookmareked and unbookmarked make the bookmark icons change
   []block certain memes from coming up that doesnt match the style. 
+
+  TODO:
+  []make edit button send the prop data to a modal?! and you can edit the modal and resubmit the meme!!!!
+  []style the meme modal
   */
   const btn = document.querySelector("#btn");
   const memeContainer = document.querySelector("#meme-image");
@@ -25,9 +26,11 @@ export default function App() {
   const [memes, setMemes] = useState([]);
   const [memeImageUrl, setMemeImageUrl] = useState("");
   const [formData, setFormData] = useState({
-    topText: "Top text",
+    topText: "top text",
     bottomText: "bottom text",
-    id: ""
+    id: "",
+    isBookmarked: false,
+    bookmarkedIndex: 0
   });
   const [savedMemes, setSavedMemes] = useState([]);
 
@@ -38,6 +41,19 @@ export default function App() {
       [name]: value
     }));
   };
+  // DOCS: resets form after the meme has been bookmarked when the user goes to change the form
+  function handleResetForm() {
+    if (formData.isBookmarked) {
+      setFormData({
+        topText: "top text",
+        bottomText: "bottom text",
+        id: "",
+        isBookmarked: false,
+        bookmarkedIndex: null
+      });
+    }
+
+  }
 
   useEffect(() => {
     fetch("https://api.imgflip.com/get_memes")
@@ -46,13 +62,18 @@ export default function App() {
         setMemes(response.data.memes);
         return response;
       })
-      .then(setMemeImageUrl("https://i.imgflip.com/1bik.jpg"));
+      .then(setMemeImageUrl("https://i.imgflip.com/1bik.jpg"))
+      .then(setFormData(prevState => ({
+        ...prevState,
+        id: "61580"
+      })));
   }, []);
 
+  // DOCS: handles get new meme button
   function handleClick(e) {
-    e.preventDefault;
+    e.preventDefault();
     let generatedMeme = getRandomMeme();
-    // theres a meme data whose url is a blank image so i am skipping it here
+    // DOCS: theres a meme data whose url is a blank image so i am skipping it here
     switch (generatedMeme.id) {
       case "183518946":
         generatedMeme = getRandomMeme();
@@ -63,21 +84,41 @@ export default function App() {
     setMemeImageUrl(generatedMeme.url);
     setFormData(prevState => ({
       ...prevState,
-      id: generatedMeme.id
+      id: generatedMeme.id,
+      isBookmarked: false
     }));
   }
-  console.log(formData);
 
-  function saveMeme() {
-    setSavedMemes(prevState => ([
-      ...prevState,
-      {
-        ...formData,
-        url: memeImageUrl
-      }
-    ]));
-  }
-  const bookmarkedMemes = savedMemes.map(meme => (<SavedMeme url={meme.url} topText={meme.topText} bottomText={meme.bottomText} saveMemeFunc={saveMeme} isBookmarked={true} id={meme.id} />));
+  // DOCS: handles bookmark button
+  function saveMeme(e) {
+    if (formData.isBookmarked === false) {
+      setSavedMemes(prevState => ([
+        ...prevState
+        , {
+          ...formData,
+          url: memeImageUrl,
+          isBookmarked: true,
+          bookmarkedIndex: savedMemes.length
+        }
+      ]));
+
+      setFormData(prevState => ({
+        ...prevState,
+        isBookmarked: true,
+        bookmarkedIndex: savedMemes.length
+      }));
+
+    } else if (formData.isBookmarked === true) {
+      setFormData(prevState => ({
+        ...prevState,
+        isBookmarked: false
+      }));
+      savedMemes.splice(formData.bookmarkedIndex, 1);
+    }
+
+  };
+
+  const bookmarkedMemes = savedMemes.map(meme => (<SavedMeme url={meme.url} topText={meme.topText} bottomText={meme.bottomText} saveMemeFunc={saveMeme} deleteBookmarkFunc={setSavedMemes} isBookmarked={meme.isBookmarked} id={meme.id} key={meme.bookmarkedIndex} index={meme.bookmarkedIndex} />));
 
   return (
     <div>
@@ -114,17 +155,17 @@ export default function App() {
       <form className="container p-5">
         <div className="row g-2 mx-auto">
           <div className="col-12 col-sm-6">
-            <input type="text" placeholder="top text" className="form-control" aria-label="bottom text" name="topText" value={formData.topText} onChange={handleChange} />
+            <input type="text" placeholder="top text" className="form-control" aria-label="bottom text" name="topText" value={formData.topText} onChange={handleChange} onFocus={handleResetForm} />
           </div>
           <div className="col-12 col-sm-6">
-            <input type="text" placeholder="bottom text" className="col-12 col-sm-3 form-control" aria-label="bottom text" name="bottomText" value={formData.bottomText} onChange={handleChange} />
+            <input type="text" placeholder="bottom text" className="col-12 col-sm-3 form-control" aria-label="bottom text" name="bottomText" value={formData.bottomText} onChange={handleChange} onFocus={handleResetForm} />
           </div>
           <div className="row  mx-auto  mt-2">
             <button type="button" className="btn btn--bg btn--hover-bg mb-2 text-white col-12 form-control" onClick={handleClick}>Get a new image</button>
           </div>
         </div>
       </form>
-      <Meme url={memeImageUrl} topText={formData.topText} bottomText={formData.bottomText} saveMemeFunc={saveMeme} />
+      <Meme url={memeImageUrl} topText={formData.topText} bottomText={formData.bottomText} saveMemeFunc={saveMeme} isBookmarked={formData.isBookmarked} />
     </div>
 
   );
