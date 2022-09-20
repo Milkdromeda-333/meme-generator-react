@@ -118,3 +118,26 @@ form .bookmark-icon:hover {
   color: var(--blue);
   background: transparent;
 }
+
+/* modal and offcanvas */
+
+.offcanvas {
+  z-index: 1200;
+}
+
+
+.memeModal img {
+  object-fit: contain;
+}
+
+.memeModal .meme--text-top {
+  top: -10px;
+  left: 50%;
+  text-shadow: 0 0 2px #000;
+}
+
+.memeModal .meme--text-bottom {
+  bottom: 20px;
+  left: 50%;
+  text-shadow: 0 0 2px #000;
+}

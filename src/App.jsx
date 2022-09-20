@@ -8,7 +8,6 @@ export default function App() {
     task: be able to edit the meme
 
   TASKS:
-  [] when click the view meme they can see the meme
   [] add edit button to the bookmarked list and make it open the saved meme and make it be able to edit the top or bottom text with a small form
   []change font-family
   []block certain memes from coming up that doesnt match the style. 
@@ -16,6 +15,9 @@ export default function App() {
   TODO:
   []make edit button send the prop data to a modal?! and you can edit the modal and resubmit the meme!!!!
   []style the meme modal
+
+  make edit button:
+  - i wanna make it so that when you click the edit button a form will drop down beneath the card and you can save new input in it and when its submitted the info is saved and the form goes away.
   */
   const btn = document.querySelector("#btn");
   const memeContainer = document.querySelector("#meme-image");
@@ -90,7 +92,7 @@ export default function App() {
   }
 
   // DOCS: handles bookmark button
-  function saveMeme(e) {
+  function saveMeme() {
     if (formData.isBookmarked === false) {
       setSavedMemes(prevState => ([
         ...prevState
@@ -148,6 +150,7 @@ export default function App() {
                 {bookmarkedMemes}
               </div>
             </div>
+
           </div>
         </div>
       </nav>
