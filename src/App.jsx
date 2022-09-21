@@ -32,7 +32,7 @@ export default function App() {
     bottomText: "bottom text",
     id: "",
     isBookmarked: false,
-    bookmarkedIndex: 0
+    bookmarkedIndex: ""
   });
   const [savedMemes, setSavedMemes] = useState([]);
 
@@ -51,7 +51,7 @@ export default function App() {
         bottomText: "bottom text",
         id: "",
         isBookmarked: false,
-        bookmarkedIndex: null
+        bookmarkedIndex: savedMemes.length
       });
     }
 
@@ -91,7 +91,7 @@ export default function App() {
     }));
   }
 
-  // DOCS: handles bookmark button
+  // DOCS: handles main bookmark button
   function saveMeme() {
     if (formData.isBookmarked === false) {
       setSavedMemes(prevState => ([
@@ -119,8 +119,12 @@ export default function App() {
     }
 
   };
+  // this deletes bookmarked memes by comparing its index to the index of the meme the user wants to delete
+  const delMeme = (id) => {
+    setSavedMemes(savedMemes.filter((_, index) => index !== id));
+  };
 
-  const bookmarkedMemes = savedMemes.map(meme => (<SavedMeme url={meme.url} topText={meme.topText} bottomText={meme.bottomText} saveMemeFunc={saveMeme} deleteBookmarkFunc={setSavedMemes} isBookmarked={meme.isBookmarked} id={meme.id} key={meme.bookmarkedIndex} index={meme.bookmarkedIndex} />));
+  const bookmarkedMemes = savedMemes.map((meme, index) => (<SavedMeme url={meme.url} topText={meme.topText} bottomText={meme.bottomText} saveMemeFunc={saveMeme} isBookmarked={meme.isBookmarked} id={index} key={meme.id + index} deleteFunc={delMeme} />));
 
   return (
     <div>
