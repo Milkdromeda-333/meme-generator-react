@@ -4,10 +4,8 @@ import SavedMeme from "./SavedMeme.jsx";
 
 /*
   TASKS:
-  []change font-family
-  []block certain memes from coming up that doesnt match the style. 
-  []style the meme modal
-
+  []block certain memes from coming up that doesnt match the style.
+  [] make responsive
   */
 
 export default function App() {
@@ -58,10 +56,9 @@ export default function App() {
         setMemes(response.data.memes);
         return response;
       })
-      .then(setMemeImageUrl("https://i.imgflip.com/1bik.jpg"))
+      .then(setMemeImageUrl("https://i.imgflip.com/jrj7.jpg"))
       .then(setFormData(prevState => ({
-        ...prevState,
-        id: "61580"
+        ...prevState
       })));
   }, []);
 
@@ -131,9 +128,9 @@ export default function App() {
   const bookmarkedMemes = savedMemes.map((meme, index) => (<SavedMeme url={meme.url} topText={meme.topText} bottomText={meme.bottomText} saveMemeFunc={saveMeme} isBookmarked={meme.isBookmarked} id={index} key={meme.id + index} deleteFunc={delMeme} savedMemesArr={savedMemes} editMeme={editMeme} />));
 
   return (
-    <div>
+    <div className="bg-light vh-100">
       {/* NAV BAR */}
-      <nav className="navbar nav--bg">
+      <nav className="navbar p-2 bg-dark shadow-lg">
         <div className="container-fluid">
           <div className="navbar-brand w-100">
             <div className="d-flex flex-column justify-content-between flex-sm-row text-center">
@@ -141,11 +138,11 @@ export default function App() {
               <div>
                 <img src="src/assets/troll-face.png" alt="troll face logo" className="d-inline-block pe-2 nav--logo" />
                 <a href="#" className="navbar-brand">
-                  <span className="fs-5 text-white">Meme Generator</span>
+                  <span className="fs-4 text-white fw-bold">Meme Generator</span>
                 </a>
               </div>
-              <button className="saved-memes--open-btn text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
-                <span className="bi bi-bookmarks-fill bookmark-icon fa-2x"></span>
+              <button className="btn nav--btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+                <span className="bi bi-bookmarks-fill bookmark-icon"></span>
               </button>
             </div>
             {/* SIDEBAR/OFFCANVAS */}
@@ -172,7 +169,7 @@ export default function App() {
             <input type="text" placeholder="bottom text" className="col-12 col-sm-3 form-control" aria-label="bottom text" name="bottomText" value={formData.bottomText} onChange={handleChange} onFocus={handleResetForm} />
           </div>
           <div className="row  mx-auto  mt-2">
-            <button type="button" className="btn btn--bg btn--hover-bg mb-2 text-white col-12 form-control" onClick={handleClick}>Get a new image</button>
+            <button type="button" className="btn btn-dark mb-2 col-12 form-control fw-bold text-uppercase" onClick={handleClick}>Get new image</button>
           </div>
         </div>
       </form>

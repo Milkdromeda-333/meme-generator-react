@@ -21,7 +21,7 @@ export default function SavedMeme(props) {
     return (
         <section className="savedMeme--card">
             <div className="savedMeme--header">
-                <span onClick={() => props.deleteFunc(props.id)} className="bi bi-bookmark-x-fill"></span>
+                <span onClick={() => props.deleteFunc(props.id)} className="bi bi-bookmark-x-fill text-danger"></span>
                 <img src={props.url} style={{ width: "100px", height: "100px" }} alt="meme" />
 
             </div>
@@ -29,15 +29,15 @@ export default function SavedMeme(props) {
                 <p>
                     {props.topText}...
                 </p>
-                <button className="savedMeme--view-meme" data-bs-toggle="modal" data-bs-target={`#memeModal${props.id}`}>view meme</button>
-                <button className="savedMeme--view-meme edit" data-bs-toggle="collapse" data-bs-target={`#editForm${props.id}`}>edit</button>
+                <button className="savedMeme--btn btn btn-dark" data-bs-toggle="modal" data-bs-target={`#memeModal${props.id}`}>view meme</button>
+                <button className="savedMeme--btn btn btn-dark" data-bs-toggle="collapse" data-bs-target={`#editForm${props.id}`}>edit</button>
 
             </div>
             {/* EDIT MEME FORM */}
             <form id={`editForm${props.id}`} className="collapse text-center" onSubmit={(e) => e.preventDefault()}>
                 <input type="text" className="form-control w-75 mx-auto mb-1" placeholder="top text" name="topText" value={editedMeme.topText} onChange={handleChange} />
                 <input type="text" className="form-control w-75 mx-auto mb-1" placeholder="bottom text" name="bottomText" value={editedMeme.bottomText} onChange={handleChange} />
-                <button className="btn" onClick={() => props.editMeme(props.id, editedMeme)} data-bs-toggle="collapse" data-bs-target={`#editForm${props.id}`}>Save</button>
+                <button className="btn savedMeme--btn btn-dark" onClick={() => props.editMeme(props.id, editedMeme)} data-bs-toggle="collapse" data-bs-target={`#editForm${props.id}`}>Save</button>
             </form>
             {/* MODAL */}
             <div className="modal fade" id={`memeModal${props.id}`} aria-hidden="true">

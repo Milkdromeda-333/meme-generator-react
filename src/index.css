@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&family=Ubuntu:wght@400;700&display=swap');
+
 :root {
   --gradient: linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%);
   --blue: #3F2B96;
+  --primary-color: rgb(0, 0, 0);
+  --secondary-color: rgb(255, 255, 255);
+  --tertiary-color: DarkGray;
 }
 
 * {
@@ -8,29 +13,29 @@
 }
 
 body {
-  font-family: "Karla", sans-serif;
   margin: 0;
-  background-color: #e3e3e3;
+  background-color: var(--secondary-color);
 }
 
-/* utilities */
-.nav--bg,
-.btn--bg {
-  background: var(--gradient);
+/* nav */
+.navbar {
+  background: var(--primary-color);
+  color: var(--secondary-color);
 }
 
-/* content */
 .nav--logo {
-  width: 50px;
+  width: 60px;
 }
 
-.saved-memes--open-btn {
+.bookmark-icon {
+  transition: color ease .25s;
   background-color: transparent;
-  border: none;
+  color: var(--bs-light);
 }
 
-.btn--hover-bg:hover {
-  background: linear-gradient(90deg, #3F2B96 20%, #A8C0FF 100%);
+.nav--btn:hover {
+  border: none;
+  outline: none;
 }
 
 /* Meme */
@@ -42,6 +47,7 @@ body {
 .meme--text {
   text-shadow: 0 0 2px #000;
   transform: translate(-50%, 50%);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .meme--text-top {
@@ -59,20 +65,20 @@ body {
   width: min-content;
 }
 
-.bookmark-icon {
-  transition: color ease .25s;
-}
-
-.bookmark-icon:hover {
-  color: black;
-}
-
 form .bookmark-icon {
   color: black;
 }
 
 form .bookmark-icon:hover {
-  color: #3F2B96;
+  color: var(--primary-color);
+}
+
+.meme-bookmarked {
+  color: var(--bs-dark);
+}
+
+.meme-bookmarked:hover {
+  color: var(--bs-danger);
 }
 
 /* bookmarks */
@@ -84,7 +90,7 @@ form .bookmark-icon:hover {
   gap: 20px;
   padding: 15px;
   transition: all .15s ease-out;
-  border-top: 3px solid var(--blue);
+  border-top: 3px solid var(--bs-dark);
   grid-template-areas:
     "sec1 sec2"
     "form form";
@@ -103,7 +109,7 @@ form .bookmark-icon:hover {
 }
 
 .savedMeme--card:last-of-type {
-  border-bottom: 3px solid var(--blue);
+  border-bottom: 3px solid var(--bs-dark);
 }
 
 .savedMeme--card:hover {
@@ -116,11 +122,9 @@ form .bookmark-icon:hover {
   border-radius: 5px;
 }
 
-.savedMeme--card button {
-  background-color: var(--blue);
-  color: white;
+.savedMeme--btn {
   font-size: 12px;
-  border: 3px solid var(--blue);
+  border: 3px solid var(--bs-dark);
   width: 80px;
   padding: 3px;
   font-weight: bold;
@@ -129,14 +133,11 @@ form .bookmark-icon:hover {
   margin: 10px;
 }
 
-.savedMeme--card button:hover {
-  color: var(--blue);
+.savedMeme--btn:hover {
+  color: var(--bs-dark);
   background: transparent;
 }
 
-.savedMeme-body {
-  display: grid;
-}
 
 /* modal and offcanvas */
 
