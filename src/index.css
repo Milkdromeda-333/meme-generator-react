@@ -80,11 +80,26 @@ form .bookmark-icon:hover {
 .savedMeme--card {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  grid-template-rows: 100%;
+  grid-template-rows: 1fr;
   gap: 20px;
   padding: 15px;
   transition: all .15s ease-out;
   border-top: 3px solid var(--blue);
+  grid-template-areas:
+    "sec1 sec2"
+    "form form";
+}
+
+.savedMeme--header {
+  grid-area: sec1;
+}
+
+.savedMeme--body {
+  grid-area: sec2;
+}
+
+.savedMeme--card form {
+  grid-area: form;
 }
 
 .savedMeme--card:last-of-type {
@@ -101,7 +116,7 @@ form .bookmark-icon:hover {
   border-radius: 5px;
 }
 
-.savedMeme--view-meme {
+.savedMeme--card button {
   background-color: var(--blue);
   color: white;
   font-size: 12px;
@@ -114,9 +129,13 @@ form .bookmark-icon:hover {
   margin: 10px;
 }
 
-.savedMeme--view-meme:hover {
+.savedMeme--card button:hover {
   color: var(--blue);
   background: transparent;
+}
+
+.savedMeme-body {
+  display: grid;
 }
 
 /* modal and offcanvas */

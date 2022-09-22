@@ -2,28 +2,15 @@ import { useState, useEffect } from "react";
 import Meme from "./Meme.jsx";
 import SavedMeme from "./SavedMeme.jsx";
 
-export default function App() {
-  /*
-  PROJECT TASKS:
-    task: be able to edit the meme
-
+/*
   TASKS:
-  [] add edit button to the bookmarked list and make it open the saved meme and make it be able to edit the top or bottom text with a small form
   []change font-family
   []block certain memes from coming up that doesnt match the style. 
-
-  TODO:
-  []make edit button send the prop data to a modal?! and you can edit the modal and resubmit the meme!!!!
   []style the meme modal
 
-  make edit button:
-  - i wanna make it so that when you click the edit button a form will drop down beneath the card and you can save new input in it and when its submitted the info is saved and the form goes away.
   */
-  const btn = document.querySelector("#btn");
-  const memeContainer = document.querySelector("#meme-image");
-  function getRandomMeme() {
-    return memes[Math.floor(Math.random() * memes.length)];
-  }
+
+export default function App() {
 
   const [memes, setMemes] = useState([]);
   const [memeImageUrl, setMemeImageUrl] = useState("");
@@ -36,6 +23,11 @@ export default function App() {
   });
   const [savedMemes, setSavedMemes] = useState([]);
 
+
+  function getRandomMeme() {
+    return memes[Math.floor(Math.random() * memes.length)];
+  }
+  // DOCS: controls the input of meme form
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -43,6 +35,7 @@ export default function App() {
       [name]: value
     }));
   };
+
   // DOCS: resets form after the meme has been bookmarked when the user goes to change the form
   function handleResetForm() {
     if (formData.isBookmarked) {
@@ -57,6 +50,7 @@ export default function App() {
 
   }
 
+  // DOCS: fetched api data for memes, sets the image of the first meme on mount
   useEffect(() => {
     fetch("https://api.imgflip.com/get_memes")
       .then(response => response.json())
@@ -119,12 +113,22 @@ export default function App() {
     }
 
   };
-  // this deletes bookmarked memes by comparing its index to the index of the meme the user wants to delete
+  // DOCS: this deletes bookmarked memes by comparing its index to the index of the meme the user wants to delete
   const delMeme = (id) => {
     setSavedMemes(savedMemes.filter((_, index) => index !== id));
   };
 
-  const bookmarkedMemes = savedMemes.map((meme, index) => (<SavedMeme url={meme.url} topText={meme.topText} bottomText={meme.bottomText} saveMemeFunc={saveMeme} isBookmarked={meme.isBookmarked} id={index} key={meme.id + index} deleteFunc={delMeme} />));
+  // DOCS: edits saved memes
+  function editMeme(id, newMeme) {
+    const newMemeFull = {
+      ...savedMemes[id],
+      ...newMeme
+    };
+    setSavedMemes(prevState => prevState.map((meme, index) => index === id ? newMemeFull : meme));
+    // DOCS: if it breaks try [...prevState]
+  }
+
+  const bookmarkedMemes = savedMemes.map((meme, index) => (<SavedMeme url={meme.url} topText={meme.topText} bottomText={meme.bottomText} saveMemeFunc={saveMeme} isBookmarked={meme.isBookmarked} id={index} key={meme.id + index} deleteFunc={delMeme} savedMemesArr={savedMemes} editMeme={editMeme} />));
 
   return (
     <div>
