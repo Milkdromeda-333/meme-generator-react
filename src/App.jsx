@@ -136,7 +136,7 @@ export default function App() {
             <div className="d-flex flex-column justify-content-between flex-sm-row text-center">
               {/* BRAND/NAVBAR */}
               <div>
-                <img src="src/assets/troll-face.png" alt="troll face logo" className="d-inline-block pe-2 nav--logo" />
+                <img src="/assets/troll-face.png" alt="troll face logo" className="d-inline-block pe-2 nav--logo" />
                 <a href="#" className="navbar-brand">
                   <span className="fs-4 text-white fw-bold">Meme Generator</span>
                 </a>
